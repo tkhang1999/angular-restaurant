@@ -45,10 +45,7 @@ import { ContactComponent } from './contact/contact.component';
     MatCardModule,
     MatButtonModule,
   ],
-  providers: [
-    DishService,
-    PromotionService,
-  ],
-  bootstrap: [AppComponent]
+  providers: [DishService, PromotionService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

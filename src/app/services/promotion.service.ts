@@ -3,11 +3,10 @@ import { Promotion } from '../shared/promotion';
 import { PROMOTIONS } from '../shared/promotions';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PromotionService {
-
-  constructor() { }
+  constructor() {}
 
   getPrmotions(): Promotion[] {
     return PROMOTIONS;
