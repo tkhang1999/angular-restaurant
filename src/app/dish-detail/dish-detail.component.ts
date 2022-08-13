@@ -3,6 +3,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
 import { Dish } from '../shared/dish';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-dish-detail',
@@ -11,6 +12,9 @@ import { Dish } from '../shared/dish';
 })
 export class DishDetailComponent implements OnInit {
   dish?: Dish;
+  dishIds?: string[];
+  prev?: string;
+  next?: string;
 
   constructor(
     private dishService: DishService,
@@ -19,8 +23,29 @@ export class DishDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.dishService.getDish(id).subscribe((dish) => (this.dish = dish));
+    this.dishService
+      .getDishIds()
+      .subscribe((dishIds) => (this.dishIds = dishIds));
+    this.route.params
+      .pipe(
+        // set dish to undefined for loading side effect while waiting for dish service
+        tap(() => (this.dish = undefined)),
+        switchMap((params: Params) => this.dishService.getDish(params['id']))
+      )
+      .subscribe((dish) => {
+        this.dish = dish;
+        this.setPrevNext(dish.id);
+      });
+  }
+
+  setPrevNext(dishId: string) {
+    const index = this.dishIds?.indexOf(dishId) || 0;
+    this.prev = this.dishIds?.at(
+      (this.dishIds?.length + index - 1) % this.dishIds?.length
+    );
+    this.next = this.dishIds?.at(
+      (this.dishIds?.length + index + 1) % this.dishIds?.length
+    );
   }
 
   goBack(): void {
