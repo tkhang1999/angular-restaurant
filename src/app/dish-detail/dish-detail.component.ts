@@ -17,6 +17,7 @@ export class DishDetailComponent implements OnInit {
   dishIds?: string[];
   prev?: string;
   next?: string;
+  errMess?: string;
 
   commentForm: FormGroup;
   @ViewChild('cform') commentFormDirective: any;
@@ -74,9 +75,12 @@ export class DishDetailComponent implements OnInit {
         tap(() => (this.dish = undefined)),
         switchMap((params: Params) => this.dishService.getDish(params['id']))
       )
-      .subscribe((dish) => {
-        this.dish = dish;
-        this.setPrevNext(dish.id);
+      .subscribe({
+        next: (dish) => {
+          this.dish = dish;
+          this.setPrevNext(dish.id);
+        },
+        error: (errMess) => (this.errMess = errMess),
       });
   }
 
