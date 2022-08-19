@@ -126,7 +126,10 @@ export class DishDetailComponent implements OnInit {
   onSubmit() {
     const comment: Comment = this.commentForm.value;
     comment.date = new Date().toISOString();
-    if (this.dishCopy && this.dishCopy.comments) {
+    if (this.dishCopy) {
+      if (!this.dishCopy.comments) {
+        this.dishCopy.comments = [];
+      }
       this.dishCopy.comments.push(comment);
       this.dishService.putDish(this.dishCopy).subscribe({
         next: (dish) => {
