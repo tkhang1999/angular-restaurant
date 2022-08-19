@@ -39,6 +39,12 @@
           "comment": "It's your birthday, we're gonna party!",
           "author": "25 Cent",
           "date": "2011-12-02T17:57:28.556094Z"
+        },
+        {
+          "author": "Khang",
+          "rating": 5,
+          "comment": "This is a great dish!",
+          "date": "2022-08-19T15:33:02.479Z"
         }
       ]
     },
