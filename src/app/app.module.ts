@@ -38,6 +38,7 @@ import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 
 import { baseURL } from './shared/baseurl';
+import { HightlightDirective } from './directives/hightlight.directive';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { baseURL } from './shared/baseurl';
     AboutComponent,
     ContactComponent,
     LoginComponent,
+    HightlightDirective,
   ],
   imports: [
     BrowserModule,
